@@ -1,5 +1,4 @@
-'''
-Created on Mar 30, 2018
+__all__ = []
+__version__ = "0.1"
 
-@author: rene
-'''
+from bme280api import BME280, BME280SensorPowerMode, BME280Oversampling, BME280StandbyTime, BME280Filter
