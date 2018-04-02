@@ -1,5 +1,8 @@
 from bme280driver.bme280_defs cimport *
-from bme280driver.bme280 cimport *
+
+from bme280driver.bme280 cimport bme280_set_sensor_mode, \
+    bme280_get_sensor_mode, bme280_set_sensor_settings, \
+    bme280_set_sensor_mode, bme280_get_sensor_data
 from bme280driver.bme280_helper cimport init, bme280_close
 import time
 from libc.stdint cimport int8_t, uint8_t

@@ -1,7 +1,6 @@
-include "bme280_defs.pxd"
-
 from libc.stdint cimport int8_t, uint8_t
 
+include "bme280_defs.pxd"
 
 cdef extern from "bme280.h":
 

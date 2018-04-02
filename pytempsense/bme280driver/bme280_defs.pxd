@@ -1,4 +1,4 @@
-from libc.stdint cimport *
+from libc.stdint cimport int8_t, uint8_t, int16_t, uint16_t, int32_t, uint32_t
 
 cdef extern from "bme280_defs.h":
 
@@ -63,12 +63,12 @@ cdef extern from "bme280_defs.h":
     int8_t BME280_E_SLEEP_MODE_FAIL
 
 # name API warning codes
-    int8_t BME280_W_INVALID_OSR_MACRO
+#     int8_t BME280_W_INVALID_OSR_MACRO
 
 # name Macros related to size
-    uint8_t BME280_TEMP_PRESS_CALIB_DATA_LEN
-    uint8_t BME280_HUMIDITY_CALIB_DATA_LEN
-    uint8_t BME280_P_t_H_DATA_LEN
+#     uint8_t BME280_TEMP_PRESS_CALIB_DATA_LEN
+#     uint8_t BME280_HUMIDITY_CALIB_DATA_LEN
+#     uint8_t BME280_P_t_H_DATA_LEN
 
 # name Sensor power modes
     uint8_t    BME280_SLEEP_MODE
@@ -77,30 +77,30 @@ cdef extern from "bme280_defs.h":
 
 
 # name Macros for bit masking
-    uint8_t BME280_SENSOR_MODE_MSK
-    uint8_t BME280_SENSOR_MODE_POS
-
-    uint8_t BME280_TTRL_HUM_MSK
-    uint8_t BME280_TTRL_HUM_POS
-
-    uint8_t BME280_TTRL_PRESS_MSK
-    uint8_t BME280_TTRL_PRESS_POS
-
-    uint8_t BME280_TTRL_TEMP_MSK
-    uint8_t BME280_TTRL_TEMP_POS
-
-    uint8_t BME280_FILTER_MSK
-    uint8_t BME280_FILTER_POS
-
-    uint8_t BME280_STANDBY_MSK
-    uint8_t BME280_STANDBY_POS
+#     uint8_t BME280_SENSOR_MODE_MSK
+#     uint8_t BME280_SENSOR_MODE_POS
+# 
+#     uint8_t BME280_TTRL_HUM_MSK
+#     uint8_t BME280_TTRL_HUM_POS
+# 
+#     uint8_t BME280_TTRL_PRESS_MSK
+#     uint8_t BME280_TTRL_PRESS_POS
+# 
+#     uint8_t BME280_TTRL_TEMP_MSK
+#     uint8_t BME280_TTRL_TEMP_POS
+# 
+#     uint8_t BME280_FILTER_MSK
+#     uint8_t BME280_FILTER_POS
+# 
+#     uint8_t BME280_STANDBY_MSK
+#     uint8_t BME280_STANDBY_POS
 
 # name Sensor component selection macros
 # These values are internal for API implementation. Don't relate this to
 # data sheet.*/
-    uint8_t BME280_PRESS
-    uint8_t BME280_TEMP
-    uint8_t BME280_HUM
+#     uint8_t BME280_PRESS
+#     uint8_t BME280_TEMP
+#     uint8_t BME280_HUM
     uint8_t BME280_ALL
 
 # name Settings selection macros

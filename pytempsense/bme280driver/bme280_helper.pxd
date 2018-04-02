@@ -1,4 +1,4 @@
-from libc.stdint cimport *
+from libc.stdint cimport int8_t, int32_t
 
 include "bme280_defs.pxd"
 
