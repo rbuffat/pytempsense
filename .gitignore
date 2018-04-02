@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# eclipse
+.project
+.pydevproject
+
+# pytempsense
+pytempsense/bme280api.c
