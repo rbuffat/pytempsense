@@ -33,7 +33,7 @@ setup_args = dict(
     version=version,
     requires_python='>=2.7',
     requires_external='GDAL (>=1.8)',
-    description="pytempsense helps access BME280 sensors over I2C on Raspberry Pi's",
+    description="pytempsense allows to access BME280 sensors over I2C on Raspberry Pi's",
     license='MIT',
     keywords='BME280 raspberry pi',
     author='Rene Buffat',
