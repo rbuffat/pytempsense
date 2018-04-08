@@ -85,7 +85,7 @@ d = bme280.read()
 
 ## Advanced usage
 
-The BME280 allows different modes, such as oversampling, filter or sensor mode. These options can be controlled using the BME280 class:
+The BME280 sensor allows different modes, such as oversampling, filter or sensor mode. These options can be controlled using the BME280 class:
 
 ```python
 BME280(i2cbus=1,
@@ -99,4 +99,4 @@ BME280(i2cbus=1,
 
 
 
-Please consult the BME280 datasheet to find the values that suits your use case. The default values correspond to the recommended mode for weather monitoring (see Chapter 3.5.1 in BME280 datasheet). 
+Please consult the BME280 datasheet to find the values that suits your use case. The default values correspond to the recommended mode for weather monitoring (see Chapter 3.5.1 in BME280 datasheet).  The options can be controlled using the helper classes `BME280Oversampling`, `BME280Filter`, `BME280StandbyTime` and`BME280SensorPowerMode`. 
