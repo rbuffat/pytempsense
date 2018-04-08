@@ -1,7 +1,7 @@
 # pytempsense
 pytempsense is library to access BME280 readings over I2C for Raspberry PI's or Tinker boards
 
-
+[![Build Status](https://travis-ci.org/rbuffat/pytempsense.svg?branch=master)](https://travis-ci.org/rbuffat/pytempsense)
 
 pytempsense was developed to access readings of BME280 breakout boards (as shown below) with Python on Raspberry Pis or Tinker boards. These boards can be bought cheaply from AliExpress and co. (Around 3$, 1Q2018).  This library uses the [official BME280 sensor API driver](https://github.com/BoschSensortec/BME280_driver).
 
