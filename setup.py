@@ -16,7 +16,7 @@ ext_modules = cythonize([Extension('pytempsense.bme280api',
                                    ['pytempsense/bme280driver/bme280.c',
                                     'pytempsense/bme280driver/bme280_helper.c',
                                     'pytempsense/bme280api.pyx'],
-                                   extra_compile_args='-std=c99'
+                                   extra_compile_args=['-std=c99']
                                    )
                          ])
 
