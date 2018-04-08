@@ -1,6 +1,6 @@
-from setuptools import setup, find_packages
-from Cython.Build import cythonize
+from setuptools import setup
 from setuptools.extension import Extension
+from Cython.Build import cythonize
 import sys
 
 with open('pytempsense/__init__.py', 'r') as f:
@@ -12,11 +12,13 @@ with open('pytempsense/__init__.py', 'r') as f:
             break
 
 
-ext_options = {'extra_compile_args' : '-std=c99'}
-
-ext_modules=cythonize([Extension('pytempsense.bme280api', ['pytempsense/bme280driver/bme280.c',
-                                                           'pytempsense/bme280driver/bme280_helper.c',
-                                                           'pytempsense/bme280api.pyx'], **ext_options)])
+ext_modules = cythonize([Extension('pytempsense.bme280api',
+                                   ['pytempsense/bme280driver/bme280.c',
+                                    'pytempsense/bme280driver/bme280_helper.c',
+                                    'pytempsense/bme280api.pyx'],
+                                   extra_compile_args='-std=c99'
+                                   )
+                         ])
 
 
 open_kwds = {}
@@ -34,7 +36,6 @@ setup_args = dict(
     name='pytempsense',
     version=version,
     requires_python='>=2.7',
-    requires_external='GDAL (>=1.8)',
     description="pytempsense allows to access BME280 sensors over I2C on Raspberry Pi's",
     license='MIT',
     keywords='BME280 raspberry pi',
