@@ -12,9 +12,11 @@ with open('pytempsense/__init__.py', 'r') as f:
             break
 
 
+ext_options = dict('extra_compile_args'="-std=c99")
+
 ext_modules=cythonize([Extension('pytempsense.bme280api', ['pytempsense/bme280driver/bme280.c',
                                                            'pytempsense/bme280driver/bme280_helper.c',
-                                                           'pytempsense/bme280api.pyx'])])
+                                                           'pytempsense/bme280api.pyx'], **ext_options)])
 
 
 open_kwds = {}
