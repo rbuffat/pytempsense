@@ -66,9 +66,12 @@ void user_delay_ms(uint32_t period)
 
 int8_t init(int bus, struct bme280_dev *dev)
 {
-    if (!bme280_i2c_setup(bus, BME280_I2C_ADDR_PRIM) == BME280_OK)
+    uint8_t dev_id = BME280_I2C_ADDR_PRIM;
+
+    if (!bme280_i2c_setup(bus, dev_id) == BME280_OK)
     {
-        if (!bme280_i2c_setup(bus, BME280_I2C_ADDR_SEC) == BME280_OK)
+        dev_id = BME280_I2C_ADDR_SEC;
+        if (!bme280_i2c_setup(bus, dev_id) == BME280_OK)
         {
             return BME280_E_COMM_FAIL;
         }
@@ -76,7 +79,7 @@ int8_t init(int bus, struct bme280_dev *dev)
 
     int8_t rslt = BME280_OK;
 
-    dev->dev_id = BME280_I2C_ADDR_PRIM;
+    dev->dev_id = dev_id;
     dev->intf = BME280_I2C_INTF;
     dev->read = user_i2c_read;
     dev->write = user_i2c_write;
