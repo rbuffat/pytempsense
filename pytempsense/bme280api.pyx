@@ -6,7 +6,6 @@ from bme280driver.bme280 cimport bme280_set_sensor_mode, \
 from bme280driver.bme280_helper cimport init, bme280_close
 import time
 from libc.stdint cimport int8_t, uint8_t
-from scipy.constants.constants import convert_temperature
 
 
 class NullPointerError(RuntimeError):
