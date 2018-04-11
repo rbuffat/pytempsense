@@ -6,6 +6,7 @@ from bme280driver.bme280 cimport bme280_set_sensor_mode, \
 from bme280driver.bme280_helper cimport init, bme280_close
 import time
 from libc.stdint cimport int8_t, uint8_t
+from libc.math cimport ceil
 
 
 class NullPointerError(RuntimeError):
@@ -177,6 +178,9 @@ cdef class BME280:
 
         self._calc_sensor_measurement_time()
 
+        # Wait until we have a first measurement
+        self.dev.delay_ms(self.measurement_time)
+
     def _calc_sensor_measurement_time(self):
         """
         Calculates typical active measurement time
@@ -199,7 +203,7 @@ cdef class BME280:
         else:
             t_pressure = 0.0
 
-        self.measurement_time = int(1.0 + t_temperature + t_humidity + t_pressure)
+        self.measurement_time = int(ceil(1.0 + t_temperature + t_humidity + t_pressure))
 
     def read(self):
         """
