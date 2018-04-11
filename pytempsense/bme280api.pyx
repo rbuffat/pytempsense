@@ -193,6 +193,7 @@ cdef class BME280:
             t_temperature = 2.0 * (2 ** (self.dev.settings.osr_t - 1))
         else:
             t_temperature = 0.0
+
         if not self.dev.settings.osr_h == BME280Oversampling.NO:
             t_humidity = 2.0 * (2 ** (self.dev.settings.osr_h - 1)) + 0.5
         else:
@@ -211,7 +212,7 @@ cdef class BME280:
 
         Returns a dictionary with sensor readings and
         following keys:
-        -'temperature', unit: degree Celsius
+        - 'temperature', unit: degree Celsius
         - 'humidity', unit:  percentage relative humidity
         - 'pressure', unit: hectopascal
         - 'timestamp' unit: seconds since the epoch
@@ -234,11 +235,6 @@ cdef class BME280:
 
             check_error(rslt, "bme280_set_sensor_mode")
 
-        """
-        If we are not in continuous mode we have to wait until
-        measurement is completed
-        """
-        if not sensor_mode == BME280_NORMAL_MODE:
             self.dev.delay_ms(self.measurement_time)
 
         rslt = bme280_get_sensor_data(BME280_ALL,
