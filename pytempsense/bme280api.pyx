@@ -87,6 +87,7 @@ cdef class BME280:
     cdef bme280_dev dev
     cdef public uint8_t device_id
     cdef public uint8_t chip_id
+    cdef public uint32_t measurement_time
 
     def __cinit__(self, int i2cbus=1,
                   humidity_oversampling=BME280Oversampling.X1,
@@ -174,17 +175,20 @@ cdef class BME280:
                                       &self.dev)
         check_error(rslt, "bme280_set_sensor_mode")
 
-        self._calc_sensor_measurment_time()
+        self._calc_sensor_measurement_time()
 
-    def _calc_sensor_measurment_time(self):
+    def _calc_sensor_measurement_time(self):
         """
         Calculates typical active measurement time
 
-        See 9. Appendix B / 9.1 Measurment time in
+        See 9. Appendix B / 9.1 Measurement time in
         BME280 datasheet
         """
 
-        t_temperature = 2.0 * (2 ** (self.dev.settings.osr_t - 1))
+        if not self.dev.settings.osr_t == BME280Oversampling.NO:
+            t_temperature = 2.0 * (2 ** (self.dev.settings.osr_t - 1))
+        else:
+            t_temperature = 0.0
         if not self.dev.settings.osr_h == BME280Oversampling.NO:
             t_humidity = 2.0 * (2 ** (self.dev.settings.osr_h - 1)) + 0.5
         else:
@@ -195,7 +199,7 @@ cdef class BME280:
         else:
             t_pressure = 0.0
 
-        self.measurment_time = 1.0 + t_temperature + t_humidity + t_pressure
+        self.measurement_time = int(1.0 + t_temperature + t_humidity + t_pressure)
 
     def read(self):
         """
@@ -231,7 +235,7 @@ cdef class BME280:
         measurement is completed
         """
         if not sensor_mode == BME280_NORMAL_MODE:
-            self.dev.delay_ms(self.self.measurment_time)
+            self.dev.delay_ms(self.measurement_time)
 
         rslt = bme280_get_sensor_data(BME280_ALL,
                                       &comp_data,
