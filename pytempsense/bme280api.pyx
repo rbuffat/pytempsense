@@ -6,6 +6,7 @@ from bme280driver.bme280 cimport bme280_set_sensor_mode, \
 from bme280driver.bme280_helper cimport init, bme280_close
 import time
 from libc.stdint cimport int8_t, uint8_t
+from scipy.constants.constants import convert_temperature
 
 
 class NullPointerError(RuntimeError):
@@ -174,6 +175,29 @@ cdef class BME280:
                                       &self.dev)
         check_error(rslt, "bme280_set_sensor_mode")
 
+        self._calc_sensor_measurment_time()
+
+    def _calc_sensor_measurment_time(self):
+        """
+        Calculates typical active measurement time
+
+        See 9. Appendix B / 9.1 Measurment time in
+        BME280 datasheet
+        """
+
+        t_temperature = 2.0 * (2 ** (self.dev.settings.osr_t - 1))
+        if not self.dev.settings.osr_h == BME280Oversampling.NO:
+            t_humidity = 2.0 * (2 ** (self.dev.settings.osr_h - 1)) + 0.5
+        else:
+            t_humidity = 0.0
+
+        if not self.dev.settings.osr_p == BME280Oversampling.NO:
+            t_pressure = 2.0 * (2 ** (self.dev.settings.osr_p - 1)) + 0.5
+        else:
+            t_pressure = 0.0
+
+        self.measurment_time = 1.0 + t_temperature + t_humidity + t_pressure
+
     def read(self):
         """
         Reads values from sensor.
@@ -202,6 +226,13 @@ cdef class BME280:
                                           &self.dev)
 
             check_error(rslt, "bme280_set_sensor_mode")
+
+        """
+        If we are not in continuous mode we have to wait until
+        measurement is completed
+        """
+        if not sensor_mode == BME280_NORMAL_MODE:
+            self.dev.delay_ms(self.self.measurment_time)
 
         rslt = bme280_get_sensor_data(BME280_ALL,
                                       &comp_data,
